@@ -15,8 +15,8 @@
     L<img src="../images/roue.jpg" alt="Roue" class="logo-wheel">CAR
 </div>
 <nav class="nav-links">
-    <a href="index.php">Accueil</a>
-    <a href="annonces.php">Annonces</a>
+    <a href="/location_voitures/index.php">Accueil</a>
+    <a href="/location_voitures/annonces.php">Annonces</a>
     <a href="profile.php">Profil</a>
 </nav>
 </header>

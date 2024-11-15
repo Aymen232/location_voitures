@@ -17,19 +17,21 @@ session_start();
     <?php include('includes/includes_header.php'); ?>
 </header>
 
-    <!-- Message de connexion/déconnexion -->
+<!-- Message de connexion/déconnexion -->
 <div class="status-connexion">
     <?php if (isset($_SESSION['user_id'])): ?>
-        <p>Vous êtes connecté en tant que <strong><?php echo $_SESSION['prenom'] . " " . $_SESSION['nom']; ?></strong></p>
-        <a href="logout.php">Se déconnecter</a>
+        <p>Vous êtes connecté en tant que <strong><?php echo htmlspecialchars($_SESSION['prenom']) . " " . htmlspecialchars($_SESSION['nom']); ?></strong></p>
+        <a href="/location_voitures/logout.php">Se déconnecter</a>
     <?php else: ?>
         <p>Vous n'êtes pas connecté.</p>
     <?php endif; ?>
 </div>
+
 <main>
     <h1>Bienvenue sur notre site de location de voitures</h1>
     <p>Nous offrons une large sélection de véhicules pour répondre à vos besoins.</p>
 </main>
+
 <div class="reservation-bar">
     <div class="location">
         <label for="location">Lieu de prise en charge</label>
@@ -62,8 +64,10 @@ session_start();
         </select>
     </div>
 </div>
+
 <footer>
     <?php include('includes/includes_footer.php'); ?>
 </footer>
+
 </body>
 </html>

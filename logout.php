@@ -1,11 +1,13 @@
 <?php
+// Démarrer la session
 session_start();
-session_unset();
+
+// Supprimer toutes les variables de session
+$_SESSION = [];
+
+// Détruire la session
 session_destroy();
 
-// Écrire dans un fichier pour vérifier si ce code s'exécute
-file_put_contents("debug_log.txt", "Logout script executed.\n", FILE_APPEND);
-
-echo "Vous êtes déconnecté. La redirection devrait s'exécuter.";
-header("Location: http://localhost/location_voitures/index.php");
+// Rediriger vers la page d'accueil après déconnexion
+header("Location: /location_voitures/index.php");
 exit();

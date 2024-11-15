@@ -21,7 +21,8 @@ session_start();
 <div class="status-connexion">
     <?php if (isset($_SESSION['user_id'])): ?>
         <p>Vous êtes connecté en tant que <strong><?php echo $_SESSION['prenom'] . " " . $_SESSION['nom']; ?></strong></p>
-        <a href="logout.php">Se déconnecter</a>
+        <a href="/location_voitures/logout.php">Se déconnecter</a>
+
     <?php else: ?>
         <p>Vous n'êtes pas connecté.</p>
     <?php endif; ?>

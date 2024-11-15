@@ -5,13 +5,13 @@ require_once '../db/db_connection.php';
 
 // Vérifiez si l'utilisateur est connecté
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'user') {
-    header("Location: ../login.php");
+    header("Location: profile.php");
     exit();
 }
 
 // Récupérez les informations de l'utilisateur
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE id = $user_id";
+$query = "SELECT * FROM utilisateur WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 ?>
@@ -30,7 +30,7 @@ $user = mysqli_fetch_assoc($result);
         <h2>Mes Réservations</h2>
         <!-- Code pour afficher les réservations de l'utilisateur -->
         <?php
-        $reservations_query = "SELECT * FROM reservations WHERE user_id = $user_id";
+        $reservations_query = "SELECT * FROM reservation WHERE user_id = $user_id";
         $reservations_result = mysqli_query($conn, $reservations_query);
         while ($reservation = mysqli_fetch_assoc($reservations_result)) {
             echo "<div class='reservation'>";
@@ -56,7 +56,6 @@ $user = mysqli_fetch_assoc($result);
         }
         ?>
     </section>
-    
     <section>
         <h2>Mes Informations</h2>
         <p>Nom : <?php echo $user['nom']; ?></p>
