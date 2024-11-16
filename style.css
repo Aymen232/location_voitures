@@ -251,7 +251,7 @@ p {
     display: flex;
     flex-direction: column;
     margin: 0 10px;
-    width: 100%;
+    width: auto;
 }
 
 .reservation-bar label {
@@ -269,7 +269,7 @@ p {
     font-size: 1em;
     color: #333;
     background-color: #fff;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .reservation-bar input[type="text"]::placeholder {
@@ -283,52 +283,21 @@ p {
     outline: none;
 }
 
+.reservation-bar button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
 
- 
+.reservation-bar button:hover {
+    background-color: #0056b3;
+}
 
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
- 
 
 
 

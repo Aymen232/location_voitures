@@ -1,6 +1,6 @@
 <?php
 // Inclure la connexion à la base de données
-include('../db/db_connection.php');
+include('../DB/db_connection.php');
 
 // Démarrer la session
 session_start();

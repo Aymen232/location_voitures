@@ -1,6 +1,10 @@
 <?php
 // Connexion à la base de données
-include 'DB/db_connection.php'; // Assurez-vous que ce fichier contient la connexion à la base de données
+include 'DB/db_connection.php';
+
+if (!isset($pdo)) {
+    die("Erreur : La connexion à la base de données n'est pas établie.");
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupère les données du formulaire
@@ -16,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$location, $startDate, $endDate, $startTime, $endTime]);
 
     // Affiche les résultats
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     echo "<h2>Résultats de la recherche</h2>";
-    if ($results) {
+    
+    if ($stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($results as $annonce) {
             echo "<div class='annonce'>";
             echo "<h3>{$annonce['titre']}</h3>";
@@ -30,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "</div><hr>";
         }
     } else {
-        echo "<p>Aucune annonce trouvée pour les critères sélectionnés.</p>";
+        echo "<p>Pas d'annonces actuellement.</p>";
     }
 }
 ?>
