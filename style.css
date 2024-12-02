@@ -217,7 +217,8 @@ p {
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-    justify-content: center;
+    display: block; /* Nécessaire pour le bouton */
+    margin: 0 auto; /* Centrage horizontal */
 }
 
 .reservation-bar button:hover {
