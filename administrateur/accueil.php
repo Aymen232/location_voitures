@@ -14,7 +14,7 @@ session_start();
 <body>
 
 <header>
-    <?php include('includes/includes_header.php'); ?>
+    <?php include('../includes/includes_header_dashboard.php'); ?>
 </header>
 
 <!-- Message de connexion/déconnexion -->
@@ -69,7 +69,7 @@ session_start();
 
 
 <footer>
-    <?php include('includes/includes_footer.php'); ?>
+    <?php include('../includes/includes_footer.php'); ?>
 </footer>
 
 </body>

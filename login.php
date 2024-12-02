@@ -22,7 +22,7 @@ if (isset($_SESSION['error'])) {
 </head>
 <body>
     <?php
-    include("db/db_connection.php");
+    include("DB/db_connection.php");
     include("includes/includes_header.php");
     ?>
     <!-- Formulaire de connexion -->
