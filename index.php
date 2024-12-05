@@ -23,7 +23,7 @@ session_start();
         <p>Vous êtes connecté en tant que <strong><?php echo htmlspecialchars($_SESSION['prenom']) . " " . htmlspecialchars($_SESSION['nom']); ?></strong></p>
         <a href="/location_voitures/logout.php">Se déconnecter</a>
     <?php else: ?>
-        <p>Vous n'êtes pas connecté.</p>
+        <p>Vous n'êtes pas connecté</p>
     <?php endif; ?>
 </div>
 

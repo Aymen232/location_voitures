@@ -11,14 +11,15 @@
     include("db/db_connection.php");
     include("includes/includes_header.php");
     ?>
-<div class="form-group">
-    <input type="password" id="password" name="password" placeholder="Entrez votre nouveau mot de passe" required>
-</div>
-<!-- Champ pour confirmer le mot de passe -->
-<div class="form-group">
-    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmez le mot de passe" required>
-</div>
-<div class="form-group">
-    <button type="submit" class="btn-submit">Réinitialiser</button>
+<div class="reset-password-container">
+    <div class="form-group">
+        <input type="password" id="password" name="password" placeholder="Entrez votre nouveau mot de passe" required>
+    </div>
+    <div class="form-group">
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmez le mot de passe" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-submit">Réinitialiser</button>
+    </div>
 </div>
 </body>

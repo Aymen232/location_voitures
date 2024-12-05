@@ -34,9 +34,7 @@ body {
     max-width: 1200px;
     margin: 100px auto 20px; /* Espacement en haut pour compenser la barre de navigation */
     padding: 20px;
-    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Titres */
@@ -44,14 +42,14 @@ h1, h2 {
     font-size: 2em;
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #070707;
 }
 
 /* Texte */
 p {
     font-size: 1em;
     line-height: 1.6;
-    color: #555;
+    color: #fefefe;
 }
 
 /* Style des annonces */
@@ -93,60 +91,55 @@ p {
 .btn-deposer-annonce:hover {
     background-color: #0056b3;
 }
-
 /* Barre de navigation */
 .top-bar {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    color: white;
+    justify-content: space-between; /* Équilibrer l'espace entre le logo et les liens */
+    align-items: center; /* Centrage vertical */
+    padding: 15px 50px; /* Espacement interne */
+    background-color: rgba(0, 0, 0, 0.9); /* Couleur de fond */
+    position: fixed; /* Fixée en haut */
+    top: 0; /* Position verticale */
+    left: 0; /* Position horizontale */
+    width: 100%; /* S'étend sur toute la largeur */
+    z-index: 1000; /* Toujours au-dessus des autres éléments */
+    box-sizing: border-box; /* Inclure le padding dans la largeur totale */
 }
 
 /* Logo */
 .logo {
+    display: flex;
+    align-items: center; /* Centrage vertical du logo */
     font-size: 1.5em;
     font-weight: bold;
-    display: flex;
-    align-items: center;
+    color: white; /* Couleur du texte */
 }
 
-.logo-wheel {
-    width: 35px;
+.logo img {
+    width: 35px; /* Taille de l'image du logo */
     height: auto;
-    margin: 0 5px;
-    border-radius: 50%;
-    background-color: transparent;
-    transition: transform 1s ease-in-out;
-}
-
-.logo:hover .logo-wheel {
-    transform: rotate(360deg);
+    margin-right: 10px; /* Espacement entre le logo et le texte */
 }
 
 /* Liens de navigation */
 .nav-links {
     display: flex;
-    align-items: center;
+    justify-content: center; /* Centrage horizontal des liens */
+    align-items: center; /* Centrage vertical */
+    gap: 20px; /* Espacement entre les liens */
 }
 
 .nav-links a {
     color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-size: 1.1em;
+    text-decoration: none; /* Pas de soulignement */
+    font-size: 1em;
+    font-weight: normal;
+    transition: color 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    color: #007bff; /* Couleur au survol */
 }
-
 /* Barre de réservation */
 .reservation-bar {
     display: flex;
@@ -241,4 +234,102 @@ p {
 
 .status-connexion a:hover {
     text-decoration: underline;
+}
+/* Conteneur de connexion centré */
+.login-container {
+    position: absolute; /* Positionnement absolu pour pouvoir centrer */
+    top: 50%; /* Centrage vertical */
+    left: 50%; /* Centrage horizontal */
+    transform: translate(-50%, -50%); /* Correction pour recentrer */
+    padding: 20px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    width: 300px; /* Largeur fixe */
+    max-width: 90%; /* Réduction pour les petits écrans */
+    text-align: center; /* Centrer le contenu textuel */
+}
+/* Conteneur pour centrer les champs et le bouton */
+.reset-password-container {
+    position: absolute;
+    top: 50%; /* Centrage vertical */
+    left: 50%; /* Centrage horizontal */
+    transform: translate(-50%, -50%); /* Correction pour centrer */
+    padding: 20px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    width: 300px; /* Largeur fixe */
+    max-width: 90%; /* S'adapte aux petits écrans */
+    text-align: center; /* Centrer le contenu textuel */
+}
+
+/* Centrer les champs et le bouton */
+.reset-password-container .form-group {
+    margin-bottom: 15px; /* Espacement entre les champs */
+    text-align: center; /* Centrage horizontal */
+}
+
+/* Champs de saisie */
+.reset-password-container input[type="password"] {
+    width: 100%; /* Étendre les champs à la largeur du conteneur */
+    padding: 10px; /* Espacement interne */
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+
+/* Bouton de réinitialisation */
+.reset-password-container .btn-submit {
+    width: 100%; /* Étendre le bouton à la largeur du conteneur */
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.reset-password-container .btn-submit:hover {
+    background-color: #0056b3;
+}
+/* Conteneur pour centrer le formulaire */
+.register-container {
+    position: absolute;
+    top: 50%; /* Centrage vertical */
+    left: 50%; /* Centrage horizontal */
+    transform: translate(-50%, -50%); /* Correction pour un centrage parfait */
+    padding: 20px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    width: 350px; /* Largeur fixe */
+    max-width: 90%; /* Adaptation pour petits écrans */
+    text-align: center; /* Centrer le contenu textuel */
+}
+
+/* Champ de saisie */
+.register-container input,
+.register-container select {
+    width: 100%; /* Étendre à la largeur du conteneur */
+    padding: 10px;
+    margin-bottom: 15px; /* Espacement entre les champs */
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Bouton */
+.register-container .btn-submit {
+    width: 100%; /* Étendre le bouton à la largeur du conteneur */
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.register-container .btn-submit:hover {
+    background-color: #0056b3;
 }

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         // Succès de l'inscription
         $_SESSION['success'] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
-        header("Location: ../login.php");
+        header("Location: ../index.php");
         exit;
     } else {
         // Erreur lors de l'insertion
