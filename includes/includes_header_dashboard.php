@@ -17,7 +17,8 @@
 <nav class="nav-links">
     <a href="/location_voitures/administrateur/accueil.php">Accueil</a>
     <a href="/location_voitures/annonces.php">Annonces</a>
-    <a href="profile.php">Profil</a>
+    <a href="/location_voitures/utilisateur/profile.php">Profil</a>
+    <a href="/location_voitures/logout.php">Se déconnecter</a>
 </nav>
 </header>
 </body>

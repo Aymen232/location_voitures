@@ -1,0 +1,101 @@
+/* Style global pour le texte et le fond */
+body {
+    font-family: Arial, sans-serif;
+    color: #333; /* Couleur du texte par défaut */
+    background-color: #f4f4f4; /* Couleur de fond */
+    margin: 0;
+    padding: 0;
+}
+
+/* En-tête */
+header {
+    background-color: #007bff; /* Couleur bleue */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px; /* Limite la largeur de la section */
+    background-color: white;
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+/* Titres des sections */
+section h2 {
+    color: #0056b3; /* Bleu foncé */
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+/* Paragraphes */
+section p {
+    color: #555; /* Gris foncé */
+    font-size: 1em;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Liens */
+section a.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+section a.btn:hover {
+    background-color: #0056b3; /* Couleur plus foncée au survol */
+}
+
+/* Style des blocs de réservations et annonces */
+.reservation, .annonce {
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Titres des blocs */
+.reservation h3, .annonce h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    margin-top: 20px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsivité pour petits écrans */
+@media (max-width: 600px) {
+    section {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+
+    header, footer {
+        font-size: 1.2em;
+    }
+}

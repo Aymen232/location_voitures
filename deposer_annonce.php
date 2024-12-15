@@ -27,10 +27,14 @@ session_start();
             <textarea id="description" name="description" required></textarea>
             <label for="location">Lieu de location :</label>
             <input type="text" id="location" name="location" required>
-            <label for="start_date">Date de début :</label>
-            <input type="date" id="start_date" name="start_date" required>
-            <label for="end_date">Date de fin :</label>
-            <input type="date" id="end_date" name="end_date" required>
+            <label for="date_debut">Date de début :</label>
+            <input type="date" id="date_debut" name="date_debut" required>
+            <label for="heure_debut">Date de début :</label>
+            <input type="time" id="heure_debut" name="heure_debut" required>
+            <label for="date_fin">Date de fin :</label>
+            <input type="date" id="date_fin" name="date_fin" required>
+            <label for="heure_fin">Date de fin :</label>
+            <input type="time" id="heure_fin" name="heure_fin" required>
             <button type="submit">Déposer l'annonce</button>
         </form>
     </div>

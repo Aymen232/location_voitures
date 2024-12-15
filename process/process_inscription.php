@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mot_de_passe_hache = password_hash($mot_de_passe, PASSWORD_DEFAULT);
 
     // Insérer le nouvel utilisateur dans la base de données
-    $sql_insert_user = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, date_creation) 
+    $sql_insert_user = "INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, date_creation) 
                         VALUES (?, ?, ?, ?, NOW())";
     $stmt = $conn->prepare($sql_insert_user);
     $stmt->bind_param("ssss", $nom, $prenom, $email, $mot_de_passe_hache);

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($_POST['password']);
 
     // Vérifier si l'email existe dans la base de données
-    $sql_check_user = "SELECT * FROM utilisateur WHERE email = ?";
+    $sql_check_user = "SELECT * FROM utilisateurs WHERE email = ?";
     $stmt = $conn->prepare($sql_check_user);
     $stmt->bind_param("s", $email);
     $stmt->execute();

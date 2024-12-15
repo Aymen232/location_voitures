@@ -21,12 +21,11 @@ session_start();
 <div class="status-connexion">
     <?php if (isset($_SESSION['user_id'])): ?>
         <p>Vous êtes connecté en tant que <strong><?php echo htmlspecialchars($_SESSION['prenom']) . " " . htmlspecialchars($_SESSION['nom']); ?></strong></p>
-        <a href="/location_voitures/logout.php">Se déconnecter</a>
+
     <?php else: ?>
         <p>Vous n'êtes pas connecté</p>
     <?php endif; ?>
 </div>
-
 
 <div class="reservation-bar">
     <form action="recherche.php" method="POST">
@@ -34,32 +33,30 @@ session_start();
             <label for="location">Lieu de prise en charge</label>
             <input type="text" id="location" name="location" placeholder="Calais, Pas-de-Calais, France">
         </div>
+        <!-- Date de début -->
         <div class="date">
-            <label for="start-date">Date de début</label>
-            <input type="date" id="start-date" name="start_date">
+            <label for="date_debut">Date de début</label>
+            <input type="date" id="date_debut" name="date_debut" required>
         </div>
+
+        <!-- Heure de début -->
         <div class="time">
-            <label for="start-time">Heure de début</label>
-            <select id="start-time" name="start_time">
-                <option value="Matin">Matin</option>
-                <option value="Midi">Midi</option>
-                <option value="Après-midi">Après-midi</option>
-                <option value="Soir">Soir</option>
-            </select>
+            <label for="heure_debut">Heure de début</label>
+            <input type="time" id="heure_debut" name="heure_debut" required>
         </div>
+
+        <!-- Date de fin -->
         <div class="date">
-            <label for="end-date">Date de fin</label>
-            <input type="date" id="end-date" name="end_date">
+            <label for="date_fin">Date de fin</label>
+            <input type="date" id="date_fin" name="date_fin" required>
         </div>
+
+        <!-- Heure de fin -->
         <div class="time">
-            <label for="end-time">Heure de fin</label>
-            <select id="end-time" name="end_time">
-                <option value="Matin">Matin</option>
-                <option value="Midi">Midi</option>
-                <option value="Après-midi">Après-midi</option>
-                <option value="Soir">Soir</option>
-            </select>
+            <label for="heure_fin">Heure de fin</label>
+            <input type="time" id="heure_fin" name="heure_fin" required>
         </div>
+
         <div class="submit">
             <button type="submit" name="rechercher">Rechercher</button>
         </div>

@@ -11,7 +11,7 @@ if (!isset($conn)) {
 }
 
 // Récupérer les annonces validées depuis la base de données
-$sql_select_annonces = "SELECT * FROM annonce WHERE statut = 'validée' ORDER BY date_creation DESC";
+$sql_select_annonces = "SELECT * FROM annonces WHERE statut = 'validée' ORDER BY date_creation DESC";
 $result = $conn->query($sql_select_annonces);
 
 if ($result) {
@@ -50,6 +50,16 @@ if ($result) {
                     <p>Prix par jour : <?php echo htmlspecialchars($annonce['prix_par_jour']); ?> €</p>
                     <p>Description : <?php echo htmlspecialchars($annonce['description']); ?></p>
                     <p>Lieu : <?php echo htmlspecialchars($annonce['location']); ?></p>
+                </div>
+                <!-- Bouton Réserver -->
+                <?php if (isset($_SESSION['user_id'])): ?>
+                        <form action="reservations.php" method="GET">
+                            <input type="hidden" name="annonce_id" value="<?php echo htmlspecialchars($annonce['id']); ?>">
+                            <button type="submit" class="btn-reserver">Réserver</button>
+                        </form>
+                    <?php else: ?>
+                        <p><a href="login.php">Connectez-vous</a> pour réserver cette annonce.</p>
+                    <?php endif; ?>
                 </div>
                 <hr>
             <?php endforeach; ?>

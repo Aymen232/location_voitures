@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $utilisateur_id = $_SESSION['user_id'];
     $statut = 'en attente';
 
-    $sql_insert = "INSERT INTO annonce (marque, modele, prix_par_jour, description, location, start_date, end_date, date_creation, statut, utilisateur_id) 
+    $sql_insert = "INSERT INTO annonces (marque, modele, prix_par_jour, description, location, start_date, end_date, date_creation, statut, utilisateur_id) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)";
     $stmt = $conn->prepare($sql_insert);
 

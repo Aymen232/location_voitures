@@ -29,7 +29,7 @@ if (isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
         $user_id = $_SESSION['user_id']; // Assurez-vous que l'ID de l'utilisateur est stocké dans la session
 
         // Mettre à jour le mot de passe dans la base de données
-        $sql = "UPDATE utilisateur SET password = ? WHERE id = ?";
+        $sql = "UPDATE utilisateurs SET password = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("si", $hashed_password, $user_id);
 

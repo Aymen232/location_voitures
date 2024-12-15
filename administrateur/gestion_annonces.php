@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'administrateur') {
 }
 
 $id = intval($_GET['id']);
-$sql = "SELECT a.*, u.email FROM annonce a 
-        JOIN utilisateur u ON a.utilisateur_id = u.id 
+$sql = "SELECT a.*, u.email FROM annonces a 
+        JOIN utilisateurs u ON a.utilisateur_id = u.id 
         WHERE a.id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);

@@ -105,20 +105,25 @@ p {
     z-index: 1000; /* Toujours au-dessus des autres éléments */
     box-sizing: border-box; /* Inclure le padding dans la largeur totale */
 }
-
-/* Logo */
 .logo {
-    display: flex;
-    align-items: center; /* Centrage vertical du logo */
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
-    color: white; /* Couleur du texte */
+    display: flex;
+    align-items: center;
+    color: #fff;
 }
 
-.logo img {
-    width: 35px; /* Taille de l'image du logo */
-    height: auto;
-    margin-right: 10px; /* Espacement entre le logo et le texte */
+.logo-wheel {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: transform 1s ease-in-out;
+}
+
+.logo:hover .logo-wheel {
+    transform: rotate(360deg);
 }
 
 /* Liens de navigation */
@@ -191,6 +196,7 @@ p {
 
 .reservation-bar input[type="text"]::placeholder {
     color: #0e0e0e;
+    
 }
 
 .reservation-bar input:focus,
@@ -236,17 +242,58 @@ p {
     text-decoration: underline;
 }
 /* Conteneur de connexion centré */
+/* Conteneur centré pour le formulaire de connexion */
 .login-container {
-    position: absolute; /* Positionnement absolu pour pouvoir centrer */
-    top: 50%; /* Centrage vertical */
-    left: 50%; /* Centrage horizontal */
-    transform: translate(-50%, -50%); /* Correction pour recentrer */
-    padding: 20px; /* Espacement interne */
-    border-radius: 8px; /* Coins arrondis */
-    width: 300px; /* Largeur fixe */
-    max-width: 90%; /* Réduction pour les petits écrans */
-    text-align: center; /* Centrer le contenu textuel */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 8px;
+    width: 350px; /* Même largeur que le formulaire d'inscription */
+    max-width: 90%;
+    text-align: center;
 }
+
+/* Champs de formulaire */
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Bouton de formulaire */
+.login-container .btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Couleur bleue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-container .btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Lien pour "Mot de passe oublié" */
+.login-container a {
+    color: #6a1b9a; /* Couleur violet */
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
 /* Conteneur pour centrer les champs et le bouton */
 .reset-password-container {
     position: absolute;
@@ -332,4 +379,20 @@ p {
 
 .register-container .btn-submit:hover {
     background-color: #0056b3;
+}
+.register-container .form-group{
+    text-align: center;
+}
+.header-container {  /*h1 dashboard_admin.php*/
+    position: relative;
+    height: 150px; /* Ajustez la hauteur pour définir la zone visible */
+}
+
+.align-left-middle {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px; /* Ajustez selon vos besoins */
+    color: #000; /* Couleur du texte */
 }

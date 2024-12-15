@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['action'
     if ($stmt->execute()) {
         // Récupérer l'email de l'utilisateur pour envoyer la notification
         $sql_email = "SELECT u.email, a.marque, a.modele 
-                      FROM utilisateur u 
-                      JOIN annonce a ON u.id = a.utilisateur_id 
+                      FROM utilisateurs u 
+                      JOIN annonces a ON u.id = a.utilisateur_id 
                       WHERE a.id = ?";
         $stmt_email = $conn->prepare($sql_email);
         $stmt_email->bind_param("i", $id);
