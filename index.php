@@ -28,7 +28,7 @@ session_start();
 </div>
 
 <div class="reservation-bar">
-    <form action="recherche.php" method="POST">
+    <form action="process_recherche.php" method="POST">
         <div class="location">
             <label for="location">Lieu de prise en charge</label>
             <input type="text" id="location" name="location" placeholder="Calais, Pas-de-Calais, France">
