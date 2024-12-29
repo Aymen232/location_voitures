@@ -97,7 +97,7 @@ p {
     justify-content: space-between; /* Équilibrer l'espace entre le logo et les liens */
     align-items: center; /* Centrage vertical */
     padding: 15px 50px; /* Espacement interne */
-    background-color: rgba(0, 0, 0, 0.9); /* Couleur de fond */
+    background-color: transparent; /* Fond transparent */
     position: fixed; /* Fixée en haut */
     top: 0; /* Position verticale */
     left: 0; /* Position horizontale */
@@ -395,4 +395,73 @@ p {
     transform: translateY(-50%);
     font-size: 24px; /* Ajustez selon vos besoins */
     color: #000; /* Couleur du texte */
+}
+/* Styles modernes pour les annonces */
+.annonces-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.annonce-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.annonce-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.annonce-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.annonce-card-content {
+    padding: 15px;
+}
+
+.annonce-card h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.annonce-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.annonce-card .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+    text-align: center;
+}
+
+.annonce-card .availability {
+    font-size: 13px;
+    font-style: italic;
+    color: #666;
+    text-align: center;
+}
+
+/* Message d'erreur */
+.message-erreur {
+    text-align: center;
+    font-size: 16px;
+    color: red;
+    margin: 20px;
 }

@@ -1,5 +1,5 @@
 <?php
-// Démarrer la session
+// Démarrer la session pour utiliser les données de session
 session_start();
 ?>
 
@@ -14,25 +14,28 @@ session_start();
 <body>
 
 <header>
-    <?php include('includes/includes_header.php'); ?>
+    <?php
+            include('includes/includes_header.php');
+    ?>
 </header>
 
 <!-- Message de connexion/déconnexion -->
 <div class="status-connexion">
     <?php if (isset($_SESSION['user_id'])): ?>
         <p>Vous êtes connecté en tant que <strong><?php echo htmlspecialchars($_SESSION['prenom']) . " " . htmlspecialchars($_SESSION['nom']); ?></strong></p>
-
     <?php else: ?>
         <p>Vous n'êtes pas connecté</p>
     <?php endif; ?>
 </div>
 
+<!-- Barre de réservation -->
 <div class="reservation-bar">
-    <form action="process_recherche.php" method="POST">
+    <form action="process/process_recherche.php" method="POST">
         <div class="location">
             <label for="location">Lieu de prise en charge</label>
-            <input type="text" id="location" name="location" placeholder="Calais, Pas-de-Calais, France">
+            <input type="text" id="location" name="location" placeholder="Calais, Pas-de-Calais, France" required>
         </div>
+
         <!-- Date de début -->
         <div class="date">
             <label for="date_debut">Date de début</label>
@@ -62,9 +65,6 @@ session_start();
         </div>
     </form>
 </div>
-
-
-
 <footer>
     <?php include('includes/includes_footer.php'); ?>
 </footer>

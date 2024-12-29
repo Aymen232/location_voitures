@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'client') {
 $user_id = $_SESSION['user_id'];
 
 // Requête préparée pour récupérer les informations utilisateur
-$stmt = $conn->prepare("SELECT * FROM utilisateur WHERE id = ?");
+$stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -54,7 +54,7 @@ $user = $result->fetch_assoc();
             <h2>Mes Réservations</h2>
             <?php
             // Requête pour récupérer les réservations de l'utilisateur
-            $stmt_reservations = $conn->prepare("SELECT * FROM reservation WHERE utilisateur_id = ?");
+            $stmt_reservations = $conn->prepare("SELECT * FROM reservations WHERE utilisateur_id = ?");
             $stmt_reservations->bind_param("i", $user_id);
             $stmt_reservations->execute();
             $reservations_result = $stmt_reservations->get_result();
@@ -80,7 +80,7 @@ $user = $result->fetch_assoc();
             <h2>Mes Annonces</h2>
             <?php
             // Requête pour récupérer les annonces de l'utilisateur
-            $stmt_annonces = $conn->prepare("SELECT * FROM annonce WHERE utilisateur_id = ?");
+            $stmt_annonces = $conn->prepare("SELECT * FROM annonces WHERE utilisateur_id = ?");
             $stmt_annonces->bind_param("i", $user_id);
             $stmt_annonces->execute();
             $annonces_result = $stmt_annonces->get_result();
@@ -92,14 +92,19 @@ $user = $result->fetch_assoc();
                     $description = htmlspecialchars($annonce['description'] ?? "Non spécifiée");
                     $prix_par_jour = htmlspecialchars($annonce['prix_par_jour'] ?? "Non spécifié");
                     $statut = htmlspecialchars($annonce['statut'] ?? "Non spécifié");
-
+                    $motif_refus = htmlspecialchars($annonce['motif_refus'] ?? "Aucun motif spécifié");
 
                     echo "<div class='annonce'>";
                     echo "<h3>{$marque} - {$modele}</h3>";
                     echo "<p>Description : {$description}</p>";
                     echo "<p>Prix par jour : {$prix_par_jour} €</p>";
-                    echo "<p>Etat d'annonce : {$statut} </p>";
-                    
+                    echo "<p>État de l'annonce : {$statut}</p>";
+
+                    // Afficher le motif de refus si l'annonce est refusée
+                    if ($statut === 'refusée') {
+                        echo "<p><strong>Motif de refus :</strong> {$motif_refus}</p>";
+                    }
+
                     echo "</div>";
                 }
             } else {

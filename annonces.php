@@ -1,23 +1,25 @@
 <?php
-// Inclure la connexion à la base de données
-include('DB/db_connection.php');
-
-// Démarrer la session
 session_start();
+include 'DB/db_connection.php'; // Assurez-vous que ce fichier contient les détails de connexion à la base de données
 
-// Vérifier que la connexion est bien établie
-if (!isset($conn)) {
-    die("Erreur : La connexion à la base de données n'a pas été initialisée.");
-}
+try {
+    // Récupérer les annonces non réservées
+    $sql = "SELECT * FROM annonces 
+            WHERE est_reservee = 'non réservée' 
+            AND statut = 'validée' 
+            ORDER BY date_creation DESC";
+    $stmt = $conn->prepare($sql);
 
-// Récupérer les annonces validées depuis la base de données
-$sql_select_annonces = "SELECT * FROM annonces WHERE statut = 'validée' ORDER BY date_creation DESC";
-$result = $conn->query($sql_select_annonces);
-
-if ($result) {
-    $annonces = $result->fetch_all(MYSQLI_ASSOC);
-} else {
-    die("Erreur lors de la récupération des annonces : " . $conn->error);
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $_SESSION['resultats'] = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    } else {
+        $_SESSION['error_message'] = "Erreur dans la préparation de la requête.";
+    }
+} catch (Exception $e) {
+    $_SESSION['error_message'] = "Erreur : " . $e->getMessage();
 }
 ?>
 
@@ -25,47 +27,61 @@ if ($result) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Annonces</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Annonces</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<body>
+
 <header>
     <?php include('includes/includes_header.php'); ?>
 </header>
-<body>
-    <div class="container">
-        <h1>Liste des annonces</h1>
 
-        <!-- Bouton pour déposer une nouvelle annonce -->
-        <?php if (isset($_SESSION['user_id'])): ?>
+<div class="resultats-recherche">
+    <h2 style="text-align:center;">Annonces Disponibles</h2>
+
+    <div style="text-align:center; margin-bottom: 20px;">
+        <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
             <a href="deposer_annonce.php" class="btn-deposer-annonce">Déposer une annonce</a>
         <?php else: ?>
-            <p><a href="login.php">Connectez-vous</a> pour déposer une annonce.</p>
-        <?php endif; ?>
-
-        <!-- Afficher les annonces -->
-        <?php if (!empty($annonces)): ?>
-            <?php foreach ($annonces as $annonce): ?>
-                <div class="annonce">
-                    <h3><?php echo htmlspecialchars($annonce['marque'] . " " . $annonce['modele']); ?></h3>
-                    <p>Prix par jour : <?php echo htmlspecialchars($annonce['prix_par_jour']); ?> €</p>
-                    <p>Description : <?php echo htmlspecialchars($annonce['description']); ?></p>
-                    <p>Lieu : <?php echo htmlspecialchars($annonce['location']); ?></p>
-                </div>
-                <!-- Bouton Réserver -->
-                <?php if (isset($_SESSION['user_id'])): ?>
-                        <form action="reservations.php" method="GET">
-                            <input type="hidden" name="annonce_id" value="<?php echo htmlspecialchars($annonce['id']); ?>">
-                            <button type="submit" class="btn-reserver">Réserver</button>
-                        </form>
-                    <?php else: ?>
-                        <p><a href="login.php">Connectez-vous</a> pour réserver cette annonce.</p>
-                    <?php endif; ?>
-                </div>
-                <hr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucune annonce disponible pour le moment.</p>
+            <p style="color: red; font-size: 16px;">Connectez-vous pour déposer une annonce</p>
         <?php endif; ?>
     </div>
+
+    <?php if (!empty($_SESSION['resultats'])): ?>
+        <div class="annonces-container">
+            <?php foreach ($_SESSION['resultats'] as $annonce): ?>
+                <div class="annonce-card">
+                    <img src="<?= htmlspecialchars($annonce['photo'] ?? 'default-image.jpg') ?>" alt="Photo de <?= htmlspecialchars($annonce['marque']) ?>">
+                    <div class="annonce-card-content">
+                        <h3><?= htmlspecialchars($annonce['marque']) ?> <?= htmlspecialchars($annonce['modele']) ?></h3>
+                        <p class="price"><?= htmlspecialchars($annonce['prix_par_jour']) ?> € / jour</p>
+                        <p><?= htmlspecialchars($annonce['description']) ?></p>
+                        <p class="availability">Disponible du <?= htmlspecialchars($annonce['date_debut']) ?> à <?= htmlspecialchars($annonce['heure_debut']) ?><br> 
+                            au <?= htmlspecialchars($annonce['date_fin']) ?> à <?= htmlspecialchars($annonce['heure_fin']) ?>
+                        </p>
+
+                        <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
+                            <form action="process/process_reservation.php" method="POST">
+                                <input type="hidden" name="annonce_id" value="<?= htmlspecialchars($annonce['id']) ?>">
+                                <button type="submit" class="btn-reserver">Réserver</button>
+                            </form>
+                        <?php else: ?>
+                            <p style="color: red; font-size: 14px;">Connectez-vous pour réserver</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php elseif (!empty($_SESSION['error_message'])): ?>
+        <p class="message-erreur"><?= htmlspecialchars($_SESSION['error_message']) ?></p>
+    <?php else: ?>
+        <p class="message-erreur">Aucune annonce disponible.</p>
+    <?php endif; ?>
+</div>
+
+<footer>
+    <?php include('includes/includes_footer.php'); ?>
+</footer>
 </body>
 </html>

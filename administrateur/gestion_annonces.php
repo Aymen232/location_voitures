@@ -2,47 +2,66 @@
 include('../DB/db_connection.php');
 session_start();
 
+// Vérification si l'utilisateur est administrateur
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'administrateur') {
-    header("Location: ../login.php");
-    exit();
+    die("Accès refusé : Vous devez être un administrateur pour accéder à cette page.");
 }
 
-$id = intval($_GET['id']);
-$sql = "SELECT a.*, u.email FROM annonces a 
-        JOIN utilisateurs u ON a.utilisateur_id = u.id 
-        WHERE a.id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
-    $_SESSION['error'] = "Annonce introuvable.";
-    header("Location: dashboard_admin.php");
-    exit();
-}
-
-$annonce = $result->fetch_assoc();
+// Récupérer les annonces en attente
+$sql_annonces = "SELECT * FROM annonces WHERE statut = 'en attente'";
+$result = $conn->query($sql_annonces);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil: Location de voitures</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Gestion des annonces</title>
+    <link rel="stylesheet" href="../style.css"> <!-- Chemin relatif vers votre fichier CSS -->
 </head>
 <body>
+    <h2>Gestion des annonces en attente</h2>
 
-<header>
-    <?php include('../includes/includes_header.php'); ?>
-</header>
-    <h1>Gérer l'annonce</h1>
-    <form action="traiter_annonce.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <button type="submit" name="action" value="valider">Valider</button>
-        <button type="submit" name="action" value="refuser">Refuser</button>
-    </form>
+    <!-- Affichage des annonces -->
+    <?php if ($result && $result->num_rows > 0): ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Marque</th>
+                    <th>Modèle</th>
+                    <th>Description</th>
+                    <th>Prix par jour</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($annonce = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($annonce['id']) ?></td>
+                        <td><?= htmlspecialchars($annonce['marque']) ?></td>
+                        <td><?= htmlspecialchars($annonce['modele']) ?></td>
+                        <td><?= htmlspecialchars($annonce['description']) ?></td>
+                        <td><?= htmlspecialchars($annonce['prix_par_jour']) ?> €</td>
+                        <td>
+                            <form action="traiter_annonce.php" method="POST" style="display: inline;">
+                                <input type="hidden" name="id" value="<?= $annonce['id'] ?>">
+                                <button type="submit" name="action" value="valider">Valider</button>
+                            </form>
+                            <form action="traiter_annonce.php" method="POST" style="display: inline;">
+                                <input type="hidden" name="id" value="<?= $annonce['id'] ?>">
+                                <button type="submit" name="action" value="refuser">Refuser</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>Aucune annonce en attente.</p>
+    <?php endif; ?>
+
+    <!-- Lien pour retourner au tableau de bord -->
+    <a href="dashboard_admin.php">Retour au tableau de bord</a>
 </body>
 </html>

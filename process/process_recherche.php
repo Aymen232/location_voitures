@@ -1,68 +1,63 @@
 <?php
-// Inclure le fichier de connexion
+// Inclure la connexion à la base de données
 include '../DB/db_connection.php';
+session_start();
 
-// Vérification que les données ont été envoyées via POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Récupération et nettoyage des données saisies dans la barre de recherche
-    $lieu = trim($_POST['lieu'] ?? '');
+    // Récupération des données du formulaire
+    $lieu = trim($_POST['location'] ?? '');
     $date_debut = $_POST['date_debut'] ?? '';
     $heure_debut = $_POST['heure_debut'] ?? '';
     $date_fin = $_POST['date_fin'] ?? '';
     $heure_fin = $_POST['heure_fin'] ?? '';
 
-    // Combinaison date et heure pour la comparaison si nécessaire
+    // Combinaison des dates et heures pour la requête SQL
     $date_heure_debut = $date_debut . ' ' . ($heure_debut ?: '00:00:00');
     $date_heure_fin = $date_fin . ' ' . ($heure_fin ?: '23:59:59');
 
-    // Requête SQL pour rechercher les annonces avec le statut "validée"
+    // Requête SQL pour inclure les annonces disponibles sur une partie ou toute la période
     $sql = "SELECT * FROM annonces
-            WHERE location = ? 
-            AND CONCAT(date_debut, ' ', heure_debut) <= ? 
-            AND CONCAT(date_fin, ' ', heure_fin) >= ? 
+            WHERE LOWER(location) = LOWER(?)
+            AND (
+                (CONCAT(date_debut, ' ', heure_debut) <= ? AND CONCAT(date_fin, ' ', heure_fin) >= ?)
+                OR
+                (CONCAT(date_debut, ' ', heure_debut) <= ? AND CONCAT(date_fin, ' ', heure_fin) >= ?)
+                OR
+                (CONCAT(date_debut, ' ', heure_debut) >= ? AND CONCAT(date_fin, ' ', heure_fin) <= ?)
+            )
             AND statut = 'validée'";
 
-    // Exécution de la requête avec des paramètres préparés
+    // Préparation de la requête
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $lieu, $date_heure_debut, $date_heure_fin);
+    if (!$stmt) {
+        die("Erreur dans la préparation de la requête : " . $conn->error);
+    }
+
+    // Lier les paramètres
+    $stmt->bind_param("sssssss", $lieu, $date_heure_debut, $date_heure_debut, $date_heure_fin, $date_heure_fin, $date_heure_debut, $date_heure_fin);
+
+    // Exécution de la requête
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Vérification des résultats et affichage
-    if ($result->num_rows > 0) {
-        echo "<h2>Résultats trouvés :</h2>";
-        echo "<table border='1'>
-                <tr>
-                    <th>Marque</th>
-                    <th>Modèle</th>
-                    <th>Prix par jour</th>
-                    <th>Description</th>
-                    <th>Date début</th>
-                    <th>Heure début</th>
-                    <th>Date fin</th>
-                    <th>Heure fin</th>
-                </tr>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>{$row['marque']}</td>
-                    <td>{$row['modele']}</td>
-                    <td>{$row['prix_par_jour']} €</td>
-                    <td>{$row['description']}</td>
-                    <td>{$row['date_debut']}</td>
-                    <td>{$row['heure_debut']}</td>
-                    <td>{$row['date_fin']}</td>
-                    <td>{$row['heure_fin']}</td>
-                  </tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "<p>Aucune annonce similaire n'a été trouvée.</p>";
+    // Stocker les résultats dans la session
+    $_SESSION['resultats'] = [];
+    while ($row = $result->fetch_assoc()) {
+        $_SESSION['resultats'][] = $row;
     }
 
-    // Fermeture de la connexion
+    // Définir un message si aucun résultat n'est trouvé
+    if (empty($_SESSION['resultats'])) {
+        $_SESSION['message'] = "Pas d'annonces similaires.";
+    } else {
+        unset($_SESSION['message']);
+    }
+
+    // Fermeture des connexions
     $stmt->close();
     $conn->close();
-} else {
-    echo "<p>Erreur : Données non reçues correctement.</p>";
+
+    // Redirection vers recherche.php
+    header("Location: ../recherche.php");
+    exit();
 }
-?>
