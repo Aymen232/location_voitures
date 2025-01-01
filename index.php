@@ -27,10 +27,10 @@ session_start();
         <p>Vous n'êtes pas connecté</p>
     <?php endif; ?>
 </div>
-
 <!-- Barre de réservation -->
 <div class="reservation-bar">
     <form action="process/process_recherche.php" method="POST">
+        <!-- Lieu de prise en charge -->
         <div class="location">
             <label for="location">Lieu de prise en charge</label>
             <input type="text" id="location" name="location" placeholder="Calais, Pas-de-Calais, France" required>
@@ -60,11 +60,23 @@ session_start();
             <input type="time" id="heure_fin" name="heure_fin" required>
         </div>
 
+        <!-- Filtre Trier par -->
+        <div class="filters">
+            <label for="tri">Trier par</label>
+            <select id="tri" name="tri">
+                <option value="">Aucun tri</option>
+                <option value="prix_croissant">Prix croissant</option>
+                <option value="prix_decroissant">Prix décroissant</option>
+            </select>
+        </div>
+
+        <!-- Bouton de recherche -->
         <div class="submit">
             <button type="submit" name="rechercher">Rechercher</button>
         </div>
     </form>
 </div>
+
 <footer>
     <?php include('includes/includes_footer.php'); ?>
 </footer>

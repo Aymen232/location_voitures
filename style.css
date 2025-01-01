@@ -148,76 +148,60 @@ p {
 /* Barre de réservation */
 .reservation-bar {
     display: flex;
-    justify-content: center; /* Centrage horizontal */
-    align-items: center; /* Centrage vertical */
-    background-color: rgba(255, 255, 255, 0); /* Arrière-plan totalement transparent */
-    padding: 0; /* Retirer l'espace autour */
-    gap: 20px;
     flex-wrap: wrap;
-    width: auto;
-    max-width: 1000px;
-    margin: 0 auto; /* Centrage horizontal dans le conteneur */
-    position: absolute; /* Centrage vertical */
-    top: 50%; /* Centrage vertical */
-    left: 50%; /* Centrage horizontal */
-    transform: translate(-50%, -50%); /* Correction pour recentrer */
-    border: none; /* Retirer tout cadre ou bordure */
-    box-shadow: none; /* Supprimer les ombres */
-}
-
-
-/* Chaque élément du formulaire */
-.reservation-bar .form-item {
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
-    text-align: left;
-}
-.reservation-bar label {
-    font-size: 1em; /* Légèrement plus grand pour une meilleure lisibilité */
-    color: #060606; /* Couleur inchangée, mais vous pouvez ajuster si besoin */
-    margin-bottom: 10px; /* Plus d'espace pour aérer */
-    text-align: center; /* Centrage horizontal du texte */
-    display: block; /* Nécessaire pour s'assurer que le centrage fonctionne */
-    width: 100%; /* Étendre le label sur toute la largeur */
-}
-
-
-.reservation-bar input[type="text"],
-.reservation-bar input[type="date"],
-.reservation-bar select {
-    padding: 10px;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.reservation-bar form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     width: 100%;
-    box-sizing: border-box;
+    align-items: center;
 }
 
-.reservation-bar input[type="text"]::placeholder {
-    color: #0e0e0e;
-    
+.reservation-bar .location,
+.reservation-bar .date,
+.reservation-bar .time,
+.reservation-bar .filters {
+    flex: 1 1 calc(25% - 10px);
+    min-width: 200px;
 }
 
-.reservation-bar input:focus,
-.reservation-bar select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+.reservation-bar .submit {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
-/* Bouton de recherche */
+.reservation-bar label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+}
+
+.reservation-bar input,
+.reservation-bar select,
 .reservation-bar button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.reservation-bar button {
+    background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    display: block; /* Nécessaire pour le bouton */
-    margin: 0 auto; /* Centrage horizontal */
 }
 
 .reservation-bar button:hover {

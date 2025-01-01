@@ -13,17 +13,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Préparer la requête SQL selon l'action
     if ($action === 'valider') {
-        $sql = "UPDATE annonces SET statut = 'validée' WHERE id = ?";
+        $sql = "UPDATE annonces SET statut = 'validée', motif_refus = NULL WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
     } elseif ($action === 'refuser') {
-        $sql = "UPDATE annonces SET statut = 'refusée' WHERE id = ?";
+        $motif = isset($_POST['motif']) ? trim($_POST['motif']) : null;
+
+        if (empty($motif)) {
+            $_SESSION['error'] = "Vous devez fournir un motif de refus.";
+            header("Location: gestion_annonces.php");
+            exit();
+        }
+
+        $sql = "UPDATE annonces SET statut = 'refusée', motif_refus = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $motif, $id);
     } else {
         die("Action non valide.");
     }
 
     // Exécuter la requête
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-
     if ($stmt->execute()) {
         $_SESSION['success'] = "Annonce $action avec succès.";
     } else {
@@ -37,4 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: gestion_annonces.php");
     exit();
 }
-?>

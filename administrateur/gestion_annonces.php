@@ -17,7 +17,7 @@ $result = $conn->query($sql_annonces);
 <head>
     <meta charset="UTF-8">
     <title>Gestion des annonces</title>
-    <link rel="stylesheet" href="../style.css"> <!-- Chemin relatif vers votre fichier CSS -->
+    <link rel="stylesheet" href="../style.css"> 
 </head>
 <body>
     <h2>Gestion des annonces en attente</h2>
@@ -28,10 +28,15 @@ $result = $conn->query($sql_annonces);
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Photo</th>
                     <th>Marque</th>
                     <th>Modèle</th>
                     <th>Description</th>
                     <th>Prix par jour</th>
+                    <th>Date de début</th>
+                    <th>Heure de début</th>
+                    <th>Date de fin</th>
+                    <th>Heure de fin</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -39,10 +44,21 @@ $result = $conn->query($sql_annonces);
                 <?php while ($annonce = $result->fetch_assoc()): ?>
                     <tr>
                         <td><?= htmlspecialchars($annonce['id']) ?></td>
+                        <td>
+                            <?php if (!empty($annonce['photo'])): ?>
+                                <img src="../<?= htmlspecialchars($annonce['photo']) ?>" alt="Photo de la voiture" style="width: 100px; height: auto;">
+                            <?php else: ?>
+                                <span>Aucune photo</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?= htmlspecialchars($annonce['marque']) ?></td>
                         <td><?= htmlspecialchars($annonce['modele']) ?></td>
                         <td><?= htmlspecialchars($annonce['description']) ?></td>
                         <td><?= htmlspecialchars($annonce['prix_par_jour']) ?> €</td>
+                        <td><?= htmlspecialchars($annonce['date_debut']) ?></td>
+                        <td><?= htmlspecialchars($annonce['heure_debut']) ?></td>
+                        <td><?= htmlspecialchars($annonce['date_fin']) ?></td>
+                        <td><?= htmlspecialchars($annonce['heure_fin']) ?></td>
                         <td>
                             <form action="traiter_annonce.php" method="POST" style="display: inline;">
                                 <input type="hidden" name="id" value="<?= $annonce['id'] ?>">
@@ -50,7 +66,9 @@ $result = $conn->query($sql_annonces);
                             </form>
                             <form action="traiter_annonce.php" method="POST" style="display: inline;">
                                 <input type="hidden" name="id" value="<?= $annonce['id'] ?>">
-                                <button type="submit" name="action" value="refuser">Refuser</button>
+                                <button type="button" name="action" value="refuser" onclick="toggleMotif(<?= $annonce['id'] ?>)">Refuser</button>
+                                <textarea name="motif" id="motif_<?= $annonce['id'] ?>" placeholder="Motif de refus" style="display:none;"></textarea>
+                                <button type="submit" name="action" value="refuser" style="display:none;" id="submit_<?= $annonce['id'] ?>">Confirmer le refus</button>
                             </form>
                         </td>
                     </tr>
@@ -63,5 +81,14 @@ $result = $conn->query($sql_annonces);
 
     <!-- Lien pour retourner au tableau de bord -->
     <a href="dashboard_admin.php">Retour au tableau de bord</a>
+
+    <script>
+        function toggleMotif(id) {
+            const motifField = document.getElementById('motif_' + id);
+            const submitButton = document.getElementById('submit_' + id);
+            motifField.style.display = 'block';
+            submitButton.style.display = 'inline-block';
+        }
+    </script>
 </body>
 </html>

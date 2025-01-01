@@ -30,10 +30,14 @@ session_start();
                         <p class="availability">Disponible du <?= htmlspecialchars($annonce['date_debut']) ?> à <?= htmlspecialchars($annonce['heure_debut']) ?><br> 
                             au <?= htmlspecialchars($annonce['date_fin']) ?> à <?= htmlspecialchars($annonce['heure_fin']) ?>
                         </p>
-                        <form action="process/process_reservation.php" method="POST">
+                        <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
+                            <form action="process/process_reservation.php" method="POST">
                             <input type="hidden" name="annonce_id" value="<?= htmlspecialchars($annonce['id']) ?>">
                             <button type="submit" class="btn-reserver">Réserver</button>
-                        </form>
+                            </form>
+                        <?php else: ?>
+                            <p style="color: red; font-size: 14px;">Connectez-vous pour réserver</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -42,6 +46,7 @@ session_start();
         <p class="message-erreur"><?= htmlspecialchars($_SESSION['message']) ?></p>
     <?php endif; ?>
 </div>
+
 
 <footer>
     <?php include('includes/includes_footer.php'); ?>

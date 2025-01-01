@@ -31,11 +31,11 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <?php if (isset($_SESSION['user_id'])): ?>
                 <!-- Si l'utilisateur est connecté -->
-                <a href="logout.php">Se déconnecter</a>
+                <a href="logout.php">Déconnexion</a>
             <?php else: ?>
                 <!-- Si l'utilisateur n'est pas connecté -->
-                <a href="inscription.php">S'inscrire</a>
-                <a href="login.php">Se connecter</a>
+                <a href="inscription.php">Inscription</a>
+                <a href="login.php">Connexion</a>
             <?php endif; ?>
         </nav>
     </header>
