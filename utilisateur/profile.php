@@ -35,10 +35,10 @@ $user = $result->fetch_assoc();
     <link rel="stylesheet" href="../style1.css">
 </head>
 <body>
-    <header>
+<header>
+        <?php include('../includes/includes_header.php'); ?>
         <h1>Bienvenue, <?php echo htmlspecialchars($user['prenom']); ?> !</h1>
     </header>
-
     <main>
         <!-- Section des informations utilisateur -->
         <section>

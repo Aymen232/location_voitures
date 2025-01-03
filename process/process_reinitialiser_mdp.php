@@ -1,19 +1,7 @@
 <?php
 // Démarrer la session si nécessaire
 session_start();
-
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "location_voitures";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérifier la connexion
-if ($conn->connect_error) {
-    die("Erreur de connexion: " . $conn->connect_error);
-}
+include('../DB/db_connection.php');
 
 // Vérifier que les champs sont remplis
 if (isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
